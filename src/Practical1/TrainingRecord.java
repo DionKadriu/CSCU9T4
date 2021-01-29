@@ -34,7 +34,6 @@ public class TrainingRecord {
     } // lookupEntry
 
     public String remove(String name, int d, int m, int y) {
-        StringBuilder stringBuilder = new StringBuilder();
 
         ListIterator<Entry> iter = tr.listIterator();
         String result = "";
@@ -42,11 +41,11 @@ public class TrainingRecord {
         for (Entry current : tr) {
 
             current = iter.next();
-            if (current.getName().equals(name) && current.getDay() == d && current.getMonth() == m && current.getYear() == y){
+            if (current.getName().equals(name) && current.getDay() == d && current.getMonth() == m && current.getYear() == y) {
 
                 iter.remove();
-                current= iter.next();
-        }
+                current = iter.next();
+            }
             result = result.concat(current.getEntry());
         }
 
