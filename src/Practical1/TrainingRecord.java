@@ -1,14 +1,17 @@
 // An implementation of a Training Record as an ArrayList
 package Practical1;
 
-
-import java.sql.SQLTransactionRollbackException;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputValidation;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class TrainingRecord {
     private List<Entry> tr;
+    public int counter = 0;
 
     public TrainingRecord() {
         tr = new ArrayList<>();
@@ -16,10 +19,27 @@ public class TrainingRecord {
 
     // add a record to the list
     public void addEntry(Entry e) {
-
         tr.add(e);
-    } // addClass
+    }
 
+    // addClass
+//    public boolean duplicate(Entry entry) {
+//        return tr.contains(entry);
+//    }
+    public boolean duplicate(Entry e) {
+
+        for (Entry current : tr) {
+
+                if (current.getName().equals(e.getName())&&
+                        current.getMonth()==(e.getMonth())&&
+                        current.getYear()==(e.getYear())&&
+                        current.getDay()==(e.getDay())) {
+                    return true;
+
+            }
+        }
+        return false;
+    }
     // look up the entry of a given day and month
     public String lookupEntry(int d, int m, int y) {
         ListIterator<Entry> iter = tr.listIterator();
@@ -68,7 +88,7 @@ public class TrainingRecord {
             }
         }
 
-        return result.equals("") ? "No entries" : result;//not working properly
+        return result;//not working properly
     }
 
     public String findAllByName(String name) {
@@ -99,4 +119,5 @@ public class TrainingRecord {
         tr.clear();
     }
 
-} // TrainingRecord
+}
+// TrainingRecord

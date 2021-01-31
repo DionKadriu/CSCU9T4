@@ -9,7 +9,7 @@ import java.lang.Number;
 
 public class TrainingRecordGUI extends JFrame implements ActionListener {
 
-    private JTextField name = new JTextField(30);
+    private JTextField name = new JTextField(15);
     private JTextField day = new JTextField(2);
     private JTextField month = new JTextField(2);
     private JTextField year = new JTextField(4);
@@ -19,8 +19,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JTextField repetition = new JTextField(2);
     private JTextField recovery = new JTextField(2);
     private JTextField dist = new JTextField(4);
-    private JTextField where = new JTextField(2);
-    private JTextField terrain = new JTextField(2);
+    private JTextField where = new JTextField(5);
+    private JTextField terrain = new JTextField(4);
     private JTextField tempo = new JTextField(2);
     private JLabel labn = new JLabel(" Name:");
     private JLabel labd = new JLabel(" Day:");
@@ -29,7 +29,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labh = new JLabel(" Hours:");
     private JLabel labmm = new JLabel(" Mins:");
     private JLabel labs = new JLabel(" Secs:");
-    private JLabel labrepetition = new JLabel(" Reps:");
+    private JLabel labrepetition = new JLabel(" Repetition:");
     private JLabel labrecovery = new JLabel(" Recovery:");
     private JLabel labwhere = new JLabel(" Where:");
     private JLabel labtempo = new JLabel(" Tempo:");
@@ -42,10 +42,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JButton findAllByDate = new JButton("Find By Date");//added the button
     private JButton remove = new JButton("Remove element");
     private JButton findAllByName = new JButton("Find By Name");
+    private final String array[] = new String[]{"Select: ", "Swim", "Cycle", "Sprint"};
+    private JComboBox comboBox = new JComboBox(array);
+
 
     private TrainingRecord myAthletes = new TrainingRecord();
 
-    private JTextArea outputArea = new JTextArea(5, 50);
+    private JTextArea outputArea = new JTextArea(20, 50);
 
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
@@ -55,6 +58,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public TrainingRecordGUI() {
         super("Training Record");
         setLayout(new FlowLayout());
+        add(comboBox);
+        comboBox.addActionListener(this);
         add(labn);
         add(name);
         name.setEditable(true);
@@ -63,9 +68,6 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         day.setEditable(true);
         add(labm);
         add(month);
-        where.setEditable(true);//where
-        add(labwhere);
-        add(where);
         month.setEditable(true);
         add(laby);
         add(year);
@@ -82,27 +84,23 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(labdist);
         add(dist);
         dist.setEditable(true);
-        add(recovery);//
+        add(labwhere);
+        add(where);
+//        where.setEditable(true);//where
         add(labrecovery);//
-        recovery.setEditable(true);///recovery box
-        add(terrain);//
-        add(labterrain);//
-        terrain.setEditable(true);///terrain box
-        add(tempo);//
-        add(labtempo);//
-        tempo.setEditable(true);///recovery box
-        add(repetition);
+        add(recovery);//
+//        recovery.setEditable(true);///recovery box
         add(labrepetition);
-        repetition.setEditable(true);//repetition
-        add(add_sprint);
-        add_sprint.addActionListener(this);
-        add(add_swim);
-        add_swim.addActionListener(this);
-        add(add_cycle);
-        add_cycle.addActionListener(this);
+        add(repetition);
+//        repetition.setEditable(true);//repetition
+        add(labterrain);//
+        add(terrain);//
+//        terrain.setEditable(true);///recovery box
+        add(labtempo);
+        add(tempo);
+//        tempo.setEditable(true)
         add(remove);
         remove.addActionListener(this);
-
         add(lookUpByDate);
         lookUpByDate.addActionListener(this);
         add(outputArea);
@@ -111,7 +109,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(findAllByName);
         findAllByName.addActionListener(this);
         outputArea.setEditable(false);
-        setSize(720, 200);
+        setSize(1000, 500);
         setVisible(true);
         blankDisplay();
 
@@ -136,8 +134,47 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent event) {
         String message = "";
+        if (event.getSource() == comboBox) {
+            if (comboBox.getSelectedIndex() == 1) {
+                remove(add_sprint);
+                remove(add_cycle);
+                add(add_swim);
+                add_swim.addActionListener(this);
+                where.setEditable(true);
+                repetition.setEditable(false);
+                tempo.setEditable(false);
+                terrain.setEditable(false);
+                recovery.setEditable(false);
+//                message=addEntrySwim("swimming");
+            }
+            if (comboBox.getSelectedIndex() == 2) {//cycle
+                remove(add_swim);
+                remove(add_sprint);
+                add(add_cycle);
+                add_cycle.addActionListener(this);
+
+                terrain.setEditable(true);
+                tempo.setEditable(true);
+                recovery.setEditable(false);
+                repetition.setEditable(false);
+                where.setEditable(false);
+//                message=addEntryCycle("cycling");
+            }
+            if (comboBox.getSelectedIndex() == 3) {//sprint
+                remove(add_swim);
+                remove(add_cycle);
+                add(add_sprint);
+                add_sprint.addActionListener(this);
+                recovery.setEditable(true);
+                repetition.setEditable(true);
+                where.setEditable(false);
+                terrain.setEditable(false);
+                tempo.setEditable(false);
+//                message=addEntrySprint("running");
+            }
+        }
         if (event.getSource() == add_sprint) {
-            message = addEntrySprint("sprint");
+            message = addEntrySprint("running");
         }
         if (event.getSource() == add_swim) {
             message = addEntrySwim("swimming");
@@ -181,11 +218,12 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
             String where1 = where.getText();
 
-
             SwimEntry swim = new SwimEntry(n, d, m, y, h, mm, s, km, where1);
+            if (myAthletes.duplicate(swim)) {
+                message = "cannot add the same athlete twice";
 
-            myAthletes.addEntry(swim);
-
+            } else
+                myAthletes.addEntry(swim);
 
         } catch (IllegalArgumentException ex) {
             message = "One of the boxes not filled or incorrect input \n" +
@@ -199,15 +237,18 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
 
     public String addEntrySprint(String what) {
+
         String message = "Record added\n";
         System.out.println("Adding " + what + " entry to the records");
 
         try {
+
             String n = name.getText();
             if (n.isEmpty()) {
                 return "Name can not be empty";
 
             }
+
             int m = Integer.parseInt(month.getText());
             int d = Integer.parseInt(day.getText());
             int y = Integer.parseInt(year.getText());
@@ -218,21 +259,24 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             int rep = Integer.parseInt(repetition.getText());
             int rec = Integer.parseInt(recovery.getText());
 
-            SprintEntry sprint = new SprintEntry(n, d, m, y, h, mm, s, km, rep, rec);
-            myAthletes.addEntry(sprint);
 
+            SprintEntry sprint = new SprintEntry(n, d, m, y, h, mm, s, km, rep, rec);
+            if (myAthletes.duplicate(sprint)) {
+                message = "cannot add the same athlete twice";
+
+            }
+            myAthletes.addEntry(sprint);
 
         } catch (IllegalArgumentException ex) {
             message = "One of the boxes not filled or incorrect input \n" +
                     "Record could not be added".toUpperCase();
             return message;
         }
-
-
         return message;
     }
 
     public String addEntryCycle(String what) {
+
         String message = "Record added\n";
         System.out.println("Adding " + what + " entry to the records");
 
@@ -253,6 +297,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             String temp = tempo.getText();
 
             CycleEntry cycleEntry = new CycleEntry(n, d, m, y, h, mm, s, km, terr, temp);
+            if (myAthletes.duplicate(cycleEntry)) {
+                message = "cannot add the same athlete twice";
+            }
             myAthletes.addEntry(cycleEntry);
 
 
@@ -279,9 +326,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
     }
 
+    //        public boolean validation(String name, int d,int m,int y){
+//        if (findAllByName()==val)
+//        }
     public String findAllByDate() {
 
         try {
+
             int m = Integer.parseInt(month.getText());
             int d = Integer.parseInt(day.getText());
             int y = Integer.parseInt(year.getText());
@@ -305,6 +356,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     public String remove() {
         try {
+
             String n = name.getText();
             int m = Integer.parseInt(month.getText());
             int d = Integer.parseInt(day.getText());
@@ -329,8 +381,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         secs.setText("");
         dist.setText("");
         repetition.setText("");//set to blan
-        where.setText("");//set to blan
-        recovery.setText("");//set to blanl
+        where.setText("");//set to blank
+        recovery.setText("");//set to blanlk
         terrain.setText("");//set to blank
         tempo.setText("");//set to blank
 
