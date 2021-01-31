@@ -33,9 +33,9 @@ public class TrainingRecord {
                 if (current.getName().equals(e.getName())&&
                         current.getMonth()==(e.getMonth())&&
                         current.getYear()==(e.getYear())&&
-                        current.getDay()==(e.getDay())) {
+                        current.getDay()==(e.getDay())
+                        &&current.getClass()==e.getClass()) {
                     return true;
-
             }
         }
         return false;

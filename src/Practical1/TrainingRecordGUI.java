@@ -46,6 +46,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JComboBox comboBox = new JComboBox(array);
 
 
+
     private TrainingRecord myAthletes = new TrainingRecord();
 
     private JTextArea outputArea = new JTextArea(20, 50);
@@ -53,8 +54,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
     } // main
-
-    // set up the GUI 
+    // set up the GUI
     public TrainingRecordGUI() {
         super("Training Record");
         setLayout(new FlowLayout());
@@ -86,19 +86,19 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         dist.setEditable(true);
         add(labwhere);
         add(where);
-//        where.setEditable(true);//where
+
         add(labrecovery);//
         add(recovery);//
-//        recovery.setEditable(true);///recovery box
+
         add(labrepetition);
         add(repetition);
-//        repetition.setEditable(true);//repetition
+
         add(labterrain);//
         add(terrain);//
-//        terrain.setEditable(true);///recovery box
-        add(labtempo);
-        add(tempo);
-//        tempo.setEditable(true)
+
+        add(labtempo);//
+        add(tempo);//
+
         add(remove);
         remove.addActionListener(this);
         add(lookUpByDate);
@@ -113,66 +113,55 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         setVisible(true);
         blankDisplay();
 
-
-//        findAllByDate.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e)// To save typing in new entries while testing, uncomment
-//            {// the following lines (or add your own test cases)
-//                int m = Integer.parseInt(month.getText());
-//                int d = Integer.parseInt(day.getText());
-//                int y = Integer.parseInt(year.getText());
-//                outputArea.setText("looking up record ...");
-//
-//                String message = myAthletes.findAllByDate(d, m, y);
-//
-//
-//                JOptionPane.showMessageDialog(null, message);
-//            } // } constructor
-//        });
-
-        // listen for and respond to GUI events
     }
 
     public void actionPerformed(ActionEvent event) {
         String message = "";
-        if (event.getSource() == comboBox) {
-            if (comboBox.getSelectedIndex() == 1) {
-                remove(add_sprint);
-                remove(add_cycle);
-                add(add_swim);
-                add_swim.addActionListener(this);
-                where.setEditable(true);
-                repetition.setEditable(false);
-                tempo.setEditable(false);
-                terrain.setEditable(false);
-                recovery.setEditable(false);
-//                message=addEntrySwim("swimming");
-            }
-            if (comboBox.getSelectedIndex() == 2) {//cycle
-                remove(add_swim);
-                remove(add_sprint);
-                add(add_cycle);
-                add_cycle.addActionListener(this);
 
-                terrain.setEditable(true);
-                tempo.setEditable(true);
-                recovery.setEditable(false);
-                repetition.setEditable(false);
-                where.setEditable(false);
-//                message=addEntryCycle("cycling");
-            }
-            if (comboBox.getSelectedIndex() == 3) {//sprint
-                remove(add_swim);
-                remove(add_cycle);
-                add(add_sprint);
-                add_sprint.addActionListener(this);
-                recovery.setEditable(true);
-                repetition.setEditable(true);
-                where.setEditable(false);
-                terrain.setEditable(false);
-                tempo.setEditable(false);
-//                message=addEntrySprint("running");
+
+        if (event.getSource() == comboBox) {
+
+            comboBox.removeItem("Select: ");
+            switch(comboBox.getSelectedIndex()){
+                case 0:
+                    add(add_swim);
+                    add_swim.addActionListener(this);
+                    remove(add_sprint);
+                    remove(add_cycle);
+                    where.setEditable(true);
+                    repetition.setEditable(false);
+                    tempo.setEditable(false);
+                    terrain.setEditable(false);
+                    recovery.setEditable(false);
+                    break;
+                case 1:
+                    add(add_cycle);
+                    add_cycle.addActionListener(this);
+                    remove(add_swim);
+                    remove(add_sprint);
+
+                    terrain.setEditable(true);
+                    tempo.setEditable(true);
+                    recovery.setEditable(false);
+                    repetition.setEditable(false);
+                    where.setEditable(false);
+                    break;
+                case 2:
+                    add(add_sprint);
+                    add_sprint.addActionListener(this);
+                    remove(add_swim);
+                    remove(add_cycle);
+                    recovery.setEditable(true);
+                    repetition.setEditable(true);
+                    where.setEditable(false);
+                    terrain.setEditable(false);
+                    tempo.setEditable(false);
+                    break;
+                default:break;
+
             }
         }
+
         if (event.getSource() == add_sprint) {
             message = addEntrySprint("running");
         }
@@ -372,6 +361,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     }
 
     public void blankDisplay() {
+
         name.setText("");
         day.setText("");
         month.setText("");
