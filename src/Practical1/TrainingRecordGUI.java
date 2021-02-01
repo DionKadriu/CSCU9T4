@@ -46,7 +46,6 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JComboBox comboBox = new JComboBox(array);
 
 
-
     private TrainingRecord myAthletes = new TrainingRecord();
 
     private JTextArea outputArea = new JTextArea(20, 50);
@@ -54,6 +53,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
     } // main
+
     // set up the GUI
     public TrainingRecordGUI() {
         super("Training Record");
@@ -98,7 +98,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
         add(labtempo);//
         add(tempo);//
-
+        add_swim.addActionListener(this);
+        add_cycle.addActionListener(this);
+        add_sprint.addActionListener(this);
         add(remove);
         remove.addActionListener(this);
         add(lookUpByDate);
@@ -122,10 +124,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         if (event.getSource() == comboBox) {
 
             comboBox.removeItem("Select: ");
-            switch(comboBox.getSelectedIndex()){
+            switch (comboBox.getSelectedIndex()) {
                 case 0:
                     add(add_swim);
-                    add_swim.addActionListener(this);
                     remove(add_sprint);
                     remove(add_cycle);
                     where.setEditable(true);
@@ -136,10 +137,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                     break;
                 case 1:
                     add(add_cycle);
-                    add_cycle.addActionListener(this);
                     remove(add_swim);
                     remove(add_sprint);
-
                     terrain.setEditable(true);
                     tempo.setEditable(true);
                     recovery.setEditable(false);
@@ -148,7 +147,6 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                     break;
                 case 2:
                     add(add_sprint);
-                    add_sprint.addActionListener(this);
                     remove(add_swim);
                     remove(add_cycle);
                     recovery.setEditable(true);
@@ -157,19 +155,19 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                     terrain.setEditable(false);
                     tempo.setEditable(false);
                     break;
-                default:break;
+                default:
+                    break;
 
             }
-        }
-
-        if (event.getSource() == add_sprint) {
-            message = addEntrySprint("running");
         }
         if (event.getSource() == add_swim) {
             message = addEntrySwim("swimming");
         }
         if (event.getSource() == add_cycle) {
             message = addEntryCycle("cycling");
+        }
+        if (event.getSource() == add_sprint) {
+            message = addEntrySprint("running");
         }
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();

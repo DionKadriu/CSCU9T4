@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class TrainingRecord {
     private List<Entry> tr;
-    public int counter = 0;
 
     public TrainingRecord() {
         tr = new ArrayList<>();
@@ -61,7 +60,10 @@ public class TrainingRecord {
         for (Entry current : tr) {
 
             current = iter.next();
-            if (current.getName().equals(name) && current.getDay() == d && current.getMonth() == m && current.getYear() == y) {
+            if (current.getName().equals(name)
+                    && current.getDay() == d
+                    && current.getMonth() == m
+                    && current.getYear() == y) {
 
                 iter.remove();
                 current = iter.next();
@@ -83,7 +85,9 @@ public class TrainingRecord {
 //                .collect(Collectors.toList());
         for (Entry current : tr) {
             current = iter.next();
-            if (current.getDay() == d && current.getMonth() == m && current.getYear() == y) {
+            if (current.getDay() == d
+                    && current.getMonth() == m
+                    && current.getYear() == y) {
                 result = result.concat(current.getEntry());
             }
         }
@@ -94,15 +98,11 @@ public class TrainingRecord {
     public String findAllByName(String name) {
         ListIterator<Entry> iter = tr.listIterator();
         String result = "";
-
-//        List<String> collect = tr.stream()
-//                .filter(current -> current.getDay() == d && current.getMonth() == m && current.getYear() == y)
-//                .map(current -> current.getEntry())
-//                .collect(Collectors.toList());
         for (Entry current : tr) {
             current = iter.next();
             if (current.getName().equals(name)) {
-                result = result.concat(current.getEntry());
+               result = result.concat(current.getEntry());
+
             }
         }
 
