@@ -42,7 +42,9 @@ public class TrainingRecord {
 
     public boolean dateValidation(int d, int m, int y) {
 
-        if (d < 1 || d > 31 || m < 1 || m > 12 || y < 1950 || y > 2021) {
+        if ((d < 1 || d > 31 )
+                ||( m < 1 || m > 12)
+                || (y < 1950 || y > 2021)) {
             return true;
 
         }
@@ -90,7 +92,9 @@ public class TrainingRecord {
         /* still not working*/
 
 //        List<String> collect = tr.stream()
-//                .filter(current -> current.getDay() == d && current.getMonth() == m && current.getYear() == y)
+//                .filter(current -> current.getDay()
+//                == d && current.getMonth()
+//                == m && current.getYear() == y)
 //                .map(current -> current.getEntry())
 //                .collect(Collectors.toList());
         for (Entry current : tr) {
