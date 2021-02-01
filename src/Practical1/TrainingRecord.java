@@ -29,16 +29,26 @@ public class TrainingRecord {
 
         for (Entry current : tr) {
 
-                if (current.getName().equals(e.getName())&&
-                        current.getMonth()==(e.getMonth())&&
-                        current.getYear()==(e.getYear())&&
-                        current.getDay()==(e.getDay())
-                        &&current.getClass()==e.getClass()) {
-                    return true;
+            if (current.getName().equals(e.getName()) &&
+                    current.getMonth() == (e.getMonth()) &&
+                    current.getYear() == (e.getYear()) &&
+                    current.getDay() == (e.getDay())
+                    && current.getClass() == e.getClass()) {
+                return true;
             }
         }
         return false;
     }
+
+    public boolean dateValidation(int d, int m, int y) {
+
+        if (d < 1 || d > 31 || m < 1 || m > 12 || y < 1950 || y > 2021) {
+            return true;
+
+        }
+        return false;
+    }
+
     // look up the entry of a given day and month
     public String lookupEntry(int d, int m, int y) {
         ListIterator<Entry> iter = tr.listIterator();
@@ -101,7 +111,7 @@ public class TrainingRecord {
         for (Entry current : tr) {
             current = iter.next();
             if (current.getName().equals(name)) {
-               result = result.concat(current.getEntry());
+                result = result.concat(current.getEntry());
 
             }
         }

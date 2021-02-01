@@ -207,9 +207,12 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
             SwimEntry swim = new SwimEntry(n, d, m, y, h, mm, s, km, where1);
             if (myAthletes.duplicate(swim)) {
-                message = "cannot add the same athlete twice";
+                message = "Cannot add the same athlete twice";
 
-            } else
+            } if (myAthletes.dateValidation(d,m,y)){
+                message="Date is not valid";
+            }
+            else
                 myAthletes.addEntry(swim);
 
         } catch (IllegalArgumentException ex) {
@@ -249,8 +252,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
             SprintEntry sprint = new SprintEntry(n, d, m, y, h, mm, s, km, rep, rec);
             if (myAthletes.duplicate(sprint)) {
-                message = "cannot add the same athlete twice";
+                message = "Cannot add the same athlete twice";
 
+            }
+            if (myAthletes.dateValidation(d,m,y)){
+                message="Date is not valid";
             }
             myAthletes.addEntry(sprint);
 
@@ -285,7 +291,10 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
             CycleEntry cycleEntry = new CycleEntry(n, d, m, y, h, mm, s, km, terr, temp);
             if (myAthletes.duplicate(cycleEntry)) {
-                message = "cannot add the same athlete twice";
+                message = "Cannot add the same athlete twice";
+            }
+            if (myAthletes.dateValidation(d,m,y)){
+                message="Date is not valid";
             }
             myAthletes.addEntry(cycleEntry);
 
