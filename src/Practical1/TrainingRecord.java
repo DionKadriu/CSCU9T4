@@ -28,9 +28,9 @@ public class TrainingRecord {
     public boolean duplicate(Entry e) {
 
         for (Entry current : tr) {
-         
 
-            if (current.getName().equals(e.getName()) &&
+
+            if (current.getName().equalsIgnoreCase(e.getName()) &&
                     current.getMonth() == (e.getMonth()) &&
                     current.getYear() == (e.getYear()) &&
                     current.getDay() == (e.getDay())
@@ -43,8 +43,8 @@ public class TrainingRecord {
 
     public boolean dateValidation(int d, int m, int y) {
 
-        if ((d < 1 || d > 31 )
-                ||( m < 1 || m > 12)
+        if ((d < 1 || d > 31)
+                || (m < 1 || m > 12)
                 || (y < 1950 || y > 2021)) {
             return true;
 
@@ -73,7 +73,7 @@ public class TrainingRecord {
         for (Entry current : tr) {
 
             current = iter.next();
-            if (current.getName().equals(name)
+            if (current.getName().equalsIgnoreCase(name)
                     && current.getDay() == d
                     && current.getMonth() == m
                     && current.getYear() == y) {
@@ -115,7 +115,7 @@ public class TrainingRecord {
         String result = "";
         for (Entry current : tr) {
             current = iter.next();
-            if (current.getName().equals(name)) {
+            if (current.getName().equalsIgnoreCase(name)) {
                 result = result.concat(current.getEntry());
 
             }
@@ -123,6 +123,36 @@ public class TrainingRecord {
 
         return result.equals("") ? "No entries" : result;//not working properly
     }
+
+    // public Entry weeklyDistance(Entry name) {
+//        findAllByName(name.getName());
+//        Calendar inst = Calendar.getInstance();
+//        Calendar date = Calendar.getInstance();
+//        inst.set(name.getYear(), name.getMonth(), name.getDay());
+//        inst.add(Calendar.DAY_OF_WEEK-7);
+//        if (inst==date.set(name.getYear()name.getMonth(),date.))
+//            return this;
+    //}//    public String weeklyDistance(String name){
+//        Calendar instance = Calendar.getInstance();
+//
+//        ListIterator<Entry> iter = tr.listIterator();
+//        int distance=0;
+//        String result = "";
+//        for (Entry current : tr) {
+//            instance.set( current.getDay(),current.getMonth(),current.getYear());
+//            current = iter.next();
+//            if (current.getName().equals(name)) {
+//                if (current.getDay()<7){
+//                    distance+= current.getDistance();
+//
+//                }                result = result.concat(current.getName());
+//
+//            }
+//        }
+//
+//        return result + "km is "+ distance;
+//
+//    }
 
     // Count the number of entries
     public int getNumberOfEntries() {

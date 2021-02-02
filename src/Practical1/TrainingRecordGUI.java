@@ -3,6 +3,7 @@ package Practical1;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.*;
 import javax.swing.*;
 import java.lang.Number;
@@ -29,21 +30,22 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
     private JLabel labh = new JLabel(" Hours:");
     private JLabel labmm = new JLabel(" Mins:");
     private JLabel labs = new JLabel(" Secs:");
-    private JLabel labrepetition = new JLabel(" Repetition:");
-    private JLabel labrecovery = new JLabel(" Recovery:");
-    private JLabel labwhere = new JLabel(" Where:");
-    private JLabel labtempo = new JLabel(" Tempo:");
-    private JLabel labterrain = new JLabel(" Terrain:");
+    private JLabel labrepetition = new JLabel(" Repetition:");//
+    private JLabel labrecovery = new JLabel(" Recovery:");//
+    private JLabel labwhere = new JLabel(" Where:");//
+    private JLabel labtempo = new JLabel(" Tempo:");//
+    private JLabel labterrain = new JLabel(" Terrain:");//
     private JLabel labdist = new JLabel(" Distance (km):");
-    private JButton add_sprint = new JButton("Add Sprint");
-    private JButton add_swim = new JButton("Add swim");
-    private JButton add_cycle = new JButton("Add cycle");
-    private JButton lookUpByDate = new JButton("Look Up");
+    private JButton add_sprint = new JButton("Add Sprint");//
+    private JButton add_swim = new JButton("Add swim");//
+    private JButton add_cycle = new JButton("Add cycle");//
+    private JButton lookUpByDate = new JButton("Look Up");//
     private JButton findAllByDate = new JButton("Find By Date");//added the button
-    private JButton remove = new JButton("Remove element");
-    private JButton findAllByName = new JButton("Find By Name");
-    private final String array[] = new String[]{"Select: ", "Swim", "Cycle", "Sprint"};
-    private JComboBox comboBox = new JComboBox(array);
+    private JButton remove = new JButton("Remove element");//
+    private JButton findAllByName = new JButton("Find By Name");//
+    private JButton weeklyDistance = new JButton("Weekly distance");//added the button
+    private final String array[] = new String[]{"Select: ", "Swim", "Cycle", "Sprint"};//
+    private JComboBox comboBox = new JComboBox(array);//
 
 
     private TrainingRecord myAthletes = new TrainingRecord();
@@ -52,6 +54,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
+
 
     } // main
 
@@ -111,6 +114,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         findAllByDate.addActionListener(this);
         add(findAllByName);
         findAllByName.addActionListener(this);
+        add(weeklyDistance);//last button
+        weeklyDistance.addActionListener(this);//last button
         outputArea.setEditable(false);
         setSize(1000, 500);
         setVisible(true);
@@ -181,6 +186,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         }
         if (event.getSource() == findAllByName) {
             message = findAllByName();
+        }
+        if (event.getSource() == weeklyDistance) {
+            message = "not working";
         }
         outputArea.setText(message);
         blankDisplay();
@@ -366,8 +374,15 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             return "No entries to remove";
         }
 
-
     }
+//    public String weeklyDistance() {
+//        String n = name.getText();
+//        outputArea.setText("looking up record ...");
+//
+//        String message = myAthletes.weeklyDistance(n);
+//
+//        return message;
+//    }
 
     public void blankDisplay() {
 
