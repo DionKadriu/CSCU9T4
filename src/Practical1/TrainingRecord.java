@@ -28,6 +28,7 @@ public class TrainingRecord {
     public boolean duplicate(Entry e) {
 
         for (Entry current : tr) {
+         
 
             if (current.getName().equals(e.getName()) &&
                     current.getMonth() == (e.getMonth()) &&

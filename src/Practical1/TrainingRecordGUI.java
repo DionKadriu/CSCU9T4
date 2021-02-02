@@ -52,9 +52,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         TrainingRecordGUI applic = new TrainingRecordGUI();
-        String n ="Nikos";
-        n.toCharArray();
-        
+
     } // main
 
     // set up the GUI
