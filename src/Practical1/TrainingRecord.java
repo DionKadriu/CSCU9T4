@@ -81,7 +81,8 @@ public class TrainingRecord {
                 && current.getDay() == d
                 && current.getMonth() == m
                 && current.getYear() == y);
-        String result = tr.stream().map(Entry::getEntry).collect(Collectors.joining());//just for storing the entries
+        String result = tr.stream().map(Entry::getEntry)
+                .collect(Collectors.joining());//just for storing the entries
         return result.equals("") ? "No remaining entries" : result;
     }
 
@@ -113,13 +114,13 @@ public class TrainingRecord {
 //                result = result.concat(current.getEntry());//displaying the message for all the entries with the same name
 //            }
 //        }
-        String AllName = tr.stream()
+        String allName = tr.stream()
                 .filter(current -> current.getName().equalsIgnoreCase(name))
                 .map(Entry::getEntry)
                 .collect(Collectors.joining());
 
 //
-        return AllName.equals("") ? "No entries for the name given" : AllName;//  if the result are not matching
+        return allName.equals("") ? "No entries for the name given" : allName;//  if the result are not matching
     }
 
 
