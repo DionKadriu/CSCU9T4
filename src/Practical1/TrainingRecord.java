@@ -1,7 +1,7 @@
 // An implementation of a Training Record as an ArrayList
 package Practical1;
 
-import javax.print.DocFlavor;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,17 +23,23 @@ public class TrainingRecord {
 
     public boolean duplicate(Entry e) {
 
-        for (Entry current : tr) {
-            /*checking if and the date matches for a new entry coming */
-            if (current.getName().equalsIgnoreCase(e.getName()) &&
-                    current.getMonth() == (e.getMonth()) &&
-                    current.getYear() == (e.getYear()) &&
-                    current.getDay() == (e.getDay())
-                    && current.getClass() == e.getClass()) {
-                return true;
-            }
-        }
-        return false;
+//        for (Entry current : tr) {
+//            /*checking if and the date matches for a new entry coming */
+//            if (current.getName().equalsIgnoreCase(e.getName()) &&
+//                    current.getMonth() == (e.getMonth()) &&
+//                    current.getYear() == (e.getYear()) &&
+//                    current.getDay() == (e.getDay())
+//                    && current.getClass() == e.getClass()) {
+//                return true;
+//            }
+//        }
+//        return false;
+        boolean checker = tr.stream().anyMatch(current -> current.getName().equalsIgnoreCase(e.getName()) &&
+                current.getMonth() == (e.getMonth()) &&
+                current.getYear() == (e.getYear()) &&
+                current.getDay() == (e.getDay())
+                && current.getClass() == e.getClass());
+        return checker;
     }
 
     public boolean dateValidation(int d, int m, int y) {
