@@ -61,29 +61,28 @@ public class TrainingRecord {
 
     public String remove(String name, int d, int m, int y) {
 
-        ListIterator<Entry> iter = tr.listIterator();
-        String result = "";
-
-        for (Entry current : tr) {
-
-            current = iter.next();
-            if (current.getName().equalsIgnoreCase(name)
-                    && current.getDay() == d
-                    && current.getMonth() == m
-                    && current.getYear() == y) {
-
-                iter.remove(); //removing the element at which the if statement is true
-                current = iter.next();//skipping to the next element
-            }
-            result = result.concat(current.getEntry());//displaying only the remaining at the result
-        }
-//        tr.removeIf(current->current.getName().equalsIgnoreCase(name)
-//                && current.getDay() == d
-//                && current.getMonth() == m
-//                && current.getYear() == y);
-
-
-        return result.equals("") ? "No entries found" : result;
+//        ListIterator<Entry> iter = tr.listIterator();
+//        String result = "";
+//
+//        for (Entry current : tr) {
+//
+//            current = iter.next();
+//            if (current.getName().equalsIgnoreCase(name)
+//                    && current.getDay() == d
+//                    && current.getMonth() == m
+//                    && current.getYear() == y) {
+//
+//                iter.remove(); //removing the element at which the if statement is true
+//                current = iter.next();//skipping to the next element
+//            }
+//            result = result.concat(current.getEntry());//displaying only the remaining at the result
+//        }
+        tr.removeIf(current -> current.getName().equalsIgnoreCase(name)
+                && current.getDay() == d
+                && current.getMonth() == m
+                && current.getYear() == y);
+        String result = tr.stream().map(Entry::getEntry).collect(Collectors.joining());//just for storing the entries
+        return result.equals("") ? "No remaining entries" : result;
     }
 
     public String findAllByDate(int d, int m, int y) {
@@ -98,9 +97,7 @@ public class TrainingRecord {
 //            }
 //       return result }
         String findDate = tr.stream() //iterating through the elements
-                .filter(current -> current.getDay()
-                        == d && current.getMonth()
-                        == m && current.getYear() == y)// filtering based on the condition
+                .filter(current -> current.getDay() == d && current.getMonth() == m && current.getYear() == y)// filtering based on the condition
                 .map(Entry::getEntry)
                 .collect(Collectors.joining());//collecting the elements as a string
 

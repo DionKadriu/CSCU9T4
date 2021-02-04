@@ -188,7 +188,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             message = findAllByName();
         }
         if (event.getSource() == weeklyDistance) {
-            message = "not working";
+            message = "still not ready :)";
         }
         outputArea.setText(message);
         blankDisplay();
