@@ -88,23 +88,23 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         add(labdist);
         add(dist);
         dist.setEditable(true);
-        add(labwhere);
-        add(where);
+        add(labwhere);//
+        add(where);//the where button
 
         add(labrecovery);//
-        add(recovery);//
+        add(recovery);//recovery button
 
         add(labrepetition);
-        add(repetition);
+        add(repetition);//added the repetititon button
 
-        add(labterrain);//
-        add(terrain);//
+        add(labterrain);
+        add(terrain);//added the terrain method
 
-        add(labtempo);//
-        add(tempo);//
-        add_swim.addActionListener(this);
-        add_cycle.addActionListener(this);
-        add_sprint.addActionListener(this);
+        add(labtempo);
+        add(tempo);//added the tempo method
+        add_swim.addActionListener(this);//enable the action listener for add swim button
+        add_cycle.addActionListener(this);//enable the action listener for add cycle button
+        add_sprint.addActionListener(this);//enable the action listener for add sprint button
         add(remove);
         remove.addActionListener(this);
         add(lookUpByDate);
@@ -262,7 +262,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
             SprintEntry sprint = new SprintEntry(n, d, m, y, h, mm, s, km, rep, rec);
             if (myAthletes.duplicate(sprint)) {
-                message = "Cannot add the same athlete twice";
+                message = "Cannot add the same athlete twice";//stopping from adding the record with that athelete in it
 
             }
             if (myAthletes.dateValidation(d, m, y)) {
@@ -286,7 +286,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         try {
             String n = name.getText();
             if (n.isEmpty()) {
-                return "Name can not be empty";
+                return "Name can not be empty";//handling the case where the name is not given
 
             }
             int m = Integer.parseInt(month.getText());
@@ -301,12 +301,12 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
             CycleEntry cycleEntry = new CycleEntry(n, d, m, y, h, mm, s, km, terr, temp);
             if (myAthletes.duplicate(cycleEntry)) {
-                message = "Cannot add the same athlete twice";
+                message = "Cannot add the same athlete twice";//validation for the name
             }
             if (myAthletes.dateValidation(d, m, y)) {
-                message = "Date is not valid";
+                message = "Date is not valid";//validation for the date
             }
-            myAthletes.addEntry(cycleEntry);
+            myAthletes.addEntry(cycleEntry);//if everything is correct add the record
 
 
         } catch (IllegalArgumentException ex) {
@@ -346,7 +346,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             return res;
 
         } catch (NumberFormatException ex) {
-            return "No entries found for display";
+            return "No entries found for display";//handling the case of no entries
         }
 
     }
@@ -371,7 +371,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             String message = myAthletes.remove(n, d, m, y);
             return message;
         } catch (IllegalArgumentException ex) {
-            return "No entries to remove";
+            return "No entries to remove"; //handling the case of no entries to remove
         }
 
     }

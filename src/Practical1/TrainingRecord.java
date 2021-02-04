@@ -1,10 +1,7 @@
 // An implementation of a Training Record as an ArrayList
 package Practical1;
 
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
-import java.io.InvalidObjectException;
-import java.io.ObjectInputValidation;
+import javax.print.DocFlavor;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,6 +11,7 @@ public class TrainingRecord {
 
     public TrainingRecord() {
         tr = new ArrayList<>();
+
     }
 
     // add a record to the list
@@ -22,14 +20,11 @@ public class TrainingRecord {
     }
 
     // addClass
-//    public boolean duplicate(Entry entry) {
-//        return tr.contains(entry);
-//    }
+
     public boolean duplicate(Entry e) {
 
         for (Entry current : tr) {
-
-
+            /*checking if and the date matches for a new entry coming */
             if (current.getName().equalsIgnoreCase(e.getName()) &&
                     current.getMonth() == (e.getMonth()) &&
                     current.getYear() == (e.getYear()) &&
@@ -42,27 +37,26 @@ public class TrainingRecord {
     }
 
     public boolean dateValidation(int d, int m, int y) {
-
-        if ((d < 1 || d > 31)
+        //validating the ranges that the dates can be inserted by the user
+        return (d < 1 || d > 31)
                 || (m < 1 || m > 12)
-                || (y < 1950 || y > 2021)) {
-            return true;
-
-        }
-        return false;
+                || (y < 1950 || y > 2021);
     }
 
     // look up the entry of a given day and month
     public String lookupEntry(int d, int m, int y) {
-        ListIterator<Entry> iter = tr.listIterator();
-
-        String result = "No entries found";
-        while (iter.hasNext()) {
-            Entry current = iter.next();
-            if (current.getDay() == d && current.getMonth() == m && current.getYear() == y)
-                result = current.getEntry();
-        }
-        return result;
+//        ListIterator<Entry> iter = tr.listIterator();
+//
+//        String result = "No entries found";
+//        while (iter.hasNext()) {
+//            Entry current = iter.next();
+//            if (current.getDay() == d && current.getMonth() == m && current.getYear() == y)
+//                result = current.getEntry();
+//        }
+        String look = tr.stream()
+                .filter(current -> current.getDay() == d && current.getMonth() == m && current.getYear() == y)
+                .map(Entry::getEntry).collect(Collectors.joining());
+        return look.equals("") ? "No entries for the given date" : look;
     } // lookupEntry
 
     public String remove(String name, int d, int m, int y) {
@@ -78,81 +72,59 @@ public class TrainingRecord {
                     && current.getMonth() == m
                     && current.getYear() == y) {
 
-                iter.remove();
-                current = iter.next();
+                iter.remove(); //removing the element at which the if statement is true
+                current = iter.next();//skipping to the next element
             }
-            result = result.concat(current.getEntry());
+            result = result.concat(current.getEntry());//displaying only the remaining at the result
         }
+//        tr.removeIf(current->current.getName().equalsIgnoreCase(name)
+//                && current.getDay() == d
+//                && current.getMonth() == m
+//                && current.getYear() == y);
 
-        return result;
+
+        return result.equals("") ? "No entries found" : result;
     }
 
     public String findAllByDate(int d, int m, int y) {
-        ListIterator<Entry> iter = tr.listIterator();
-        String result = "";
-        /* still not working*/
+//        ListIterator<Entry> iter = tr.listIterator();
+//        String result = "";
+//        for (Entry current : tr) {
+//            current = iter.next();
+//            if (current.getDay() == d
+//                    && current.getMonth() == m
+//                    && current.getYear() == y) {
+//                result = result.concat(current.getEntry()); //adding the new entry to the result message when the if statement is true
+//            }
+//       return result }
+        String findDate = tr.stream() //iterating through the elements
+                .filter(current -> current.getDay()
+                        == d && current.getMonth()
+                        == m && current.getYear() == y)// filtering based on the condition
+                .map(Entry::getEntry)
+                .collect(Collectors.joining());//collecting the elements as a string
 
-//        List<String> collect = tr.stream()
-//                .filter(current -> current.getDay()
-//                == d && current.getMonth()
-//                == m && current.getYear() == y)
-//                .map(current -> current.getEntry())
-//                .collect(Collectors.toList());
-        for (Entry current : tr) {
-            current = iter.next();
-            if (current.getDay() == d
-                    && current.getMonth() == m
-                    && current.getYear() == y) {
-                result = result.concat(current.getEntry());
-            }
-        }
-
-        return result;//not working properly
+        return findDate.equals("") ? "Entry doesn't exist" : findDate;
     }
 
     public String findAllByName(String name) {
-        ListIterator<Entry> iter = tr.listIterator();
-        String result = "";
-        for (Entry current : tr) {
-            current = iter.next();
-            if (current.getName().equalsIgnoreCase(name)) {
-                result = result.concat(current.getEntry());
-
-            }
-        }
-
-        return result.equals("") ? "No entries" : result;//not working properly
-    }
-
-    // public Entry weeklyDistance(Entry name) {
-//        findAllByName(name.getName());
-//        Calendar inst = Calendar.getInstance();
-//        Calendar date = Calendar.getInstance();
-//        inst.set(name.getYear(), name.getMonth(), name.getDay());
-//        inst.add(Calendar.DAY_OF_WEEK-7);
-//        if (inst==date.set(name.getYear()name.getMonth(),date.))
-//            return this;
-    //}//    public String weeklyDistance(String name){
-//        Calendar instance = Calendar.getInstance();
-//
 //        ListIterator<Entry> iter = tr.listIterator();
-//        int distance=0;
 //        String result = "";
 //        for (Entry current : tr) {
-//            instance.set( current.getDay(),current.getMonth(),current.getYear());
 //            current = iter.next();
-//            if (current.getName().equals(name)) {
-//                if (current.getDay()<7){
-//                    distance+= current.getDistance();
-//
-//                }                result = result.concat(current.getName());
-//
+//            if (current.getName().equalsIgnoreCase(name)) {
+//                result = result.concat(current.getEntry());//displaying the message for all the entries with the same name
 //            }
 //        }
+        String AllName = tr.stream()
+                .filter(current -> current.getName().equalsIgnoreCase(name))
+                .map(Entry::getEntry)
+                .collect(Collectors.joining());
+
 //
-//        return result + "km is "+ distance;
-//
-//    }
+        return AllName.equals("") ? "No entries for the name given" : AllName;//  if the result are not matching
+    }
+
 
     // Count the number of entries
     public int getNumberOfEntries() {
