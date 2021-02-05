@@ -1,6 +1,7 @@
 package Practical1;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class SprintEntry extends Entry {
 
@@ -30,7 +31,15 @@ public class SprintEntry extends Entry {
 
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        SprintEntry that = (SprintEntry) o;
+        return repetitions == that.repetitions &&
+                recovery == that.recovery;
+    }
 
     //getEntry
 }

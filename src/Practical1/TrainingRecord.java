@@ -34,12 +34,13 @@ public class TrainingRecord {
 //            }
 //        }
 //        return false;
-        boolean checker = tr.stream().anyMatch(current -> current.getName().equalsIgnoreCase(e.getName()) &&
+//
+        return  tr.stream().anyMatch(current -> current.getName().equalsIgnoreCase(e.getName()) &&
                 current.getMonth() == (e.getMonth()) &&
                 current.getYear() == (e.getYear()) &&
                 current.getDay() == (e.getDay())
                 && current.getClass() == e.getClass());
-        return checker;
+//        return  tr.contains(e);
     }
 
     public boolean dateValidation(int d, int m, int y) {
@@ -89,7 +90,7 @@ public class TrainingRecord {
                 && current.getYear() == y);
         String result = tr.stream().map(Entry::getEntry)
                 .collect(Collectors.joining());//just for storing the entries
-        return result.equals("") ? "No remaining entries" : result;
+        return result.equals("") ? "No remaining entries" :result;
     }
 
     public String findAllByDate(int d, int m, int y) {

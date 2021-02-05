@@ -1,6 +1,11 @@
 package Practical1;
 
-public class SwimEntry extends Entry {
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsSame;
+
+import java.util.Objects;
+
+public class SwimEntry extends Entry  {
     private String where;
 
     public SwimEntry(String n, int d, int m, int y, int h, int min, int s, float dist,String where){
@@ -18,4 +23,12 @@ public class SwimEntry extends Entry {
                 + getHour() + ":" + getMin() + ":" + getSec() + " on "
                 + getDay() + "/" + getMonth() + "/" + getYear() + "\n";
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        return this==o;
+//    }
+
+
+
 }
