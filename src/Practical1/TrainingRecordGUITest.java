@@ -88,9 +88,9 @@ public class TrainingRecordGUITest {
     public void testAddEntry(){
         System.out.println("addEntry");
         TrainingRecordGUI instance = new TrainingRecordGUI();
-        SprintEntry entry = new SprintEntry("Alice", 1,2,2003,0,17,7,3,4,8);
+        SwimEntry entry = new SwimEntry("Alice", 1,2,2003,0,17,7,3,"outside");
         instance.fillDisplay(entry);
-        String message = instance.addEntrySprint("running");
+        String message = instance.addEntrySwim("swimming");
         System.out.println(message);
         assertEquals(message,"Record added\n");
     }

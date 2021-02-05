@@ -5,12 +5,12 @@ import org.hamcrest.core.IsSame;
 
 import java.util.Objects;
 
-public class SwimEntry extends Entry  {
+public class SwimEntry extends Entry {
     private String where;
 
-    public SwimEntry(String n, int d, int m, int y, int h, int min, int s, float dist,String where){
+    public SwimEntry(String n, int d, int m, int y, int h, int min, int s, float dist, String where) {
         super(n, d, m, y, h, min, s, dist);
-        this.where=where;
+        this.where = where;
     }
 
     public String getWhere() {
@@ -28,7 +28,6 @@ public class SwimEntry extends Entry  {
 //    public boolean equals(Object o) {
 //        return this==o;
 //    }
-
 
 
 }

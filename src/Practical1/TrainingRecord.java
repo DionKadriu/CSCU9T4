@@ -35,11 +35,11 @@ public class TrainingRecord {
 //        }
 //        return false;
 //
-        return  tr.stream().anyMatch(current -> current.getName().equalsIgnoreCase(e.getName()) &&
+        return tr.stream().anyMatch(current -> current.getName().equalsIgnoreCase(e.getName()) &&
                 current.getMonth() == (e.getMonth()) &&
                 current.getYear() == (e.getYear()) &&
                 current.getDay() == (e.getDay())
-                && current.getClass() == e.getClass());
+                && current.getClass() == e.getClass());//returning a boolean based on the conditions
 //        return  tr.contains(e);
     }
 
@@ -62,7 +62,8 @@ public class TrainingRecord {
 //        }
         String look = tr.stream()
                 .filter(current -> current.getDay() == d && current.getMonth() == m && current.getYear() == y)
-                .map(Entry::getEntry).collect(Collectors.joining());
+                .map(Entry::getEntry).collect(Collectors.joining());//returning a string of an entry based on the
+        // condition in the filter
         return look.equals("") ? "No entries for the given date" : look;
     } // lookupEntry
 
@@ -87,10 +88,10 @@ public class TrainingRecord {
         tr.removeIf(current -> current.getName().equalsIgnoreCase(name)
                 && current.getDay() == d
                 && current.getMonth() == m
-                && current.getYear() == y);
+                && current.getYear() == y);// removing if the condition is matched
         String result = tr.stream().map(Entry::getEntry)
                 .collect(Collectors.joining());//just for storing the entries
-        return result.equals("") ? "No remaining entries" :result;
+        return result.equals("") ? "No remaining entries" : result;
     }
 
     public String findAllByDate(int d, int m, int y) {
@@ -107,7 +108,7 @@ public class TrainingRecord {
         String findDate = tr.stream() //iterating through the elements
                 .filter(current -> current.getDay() == d && current.getMonth() == m && current.getYear() == y)// filtering based on the condition
                 .map(Entry::getEntry)
-                .collect(Collectors.joining());//collecting the elements as a string
+                .collect(Collectors.joining());//collecting the elements as a string based on the filter condition
 
         return findDate.equals("") ? "Entry doesn't exist" : findDate;
     }
@@ -124,7 +125,7 @@ public class TrainingRecord {
         String allName = tr.stream()
                 .filter(current -> current.getName().equalsIgnoreCase(name))
                 .map(Entry::getEntry)
-                .collect(Collectors.joining());
+                .collect(Collectors.joining());//returning a String based on the condition in the filter
 
 //
         return allName.equals("") ? "No entries for the name given" : allName;//  if the result are not matching
