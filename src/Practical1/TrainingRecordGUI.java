@@ -131,7 +131,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
             comboBox.removeItem("Select: ");
             switch (comboBox.getSelectedIndex()) {
-                case 0:
+                case 0:  // if swim is selected , change the button and add disable the fields
+
                     add(add_swim);
                     remove(add_sprint);
                     remove(add_cycle);
@@ -141,7 +142,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                     terrain.setEditable(false);
                     recovery.setEditable(false);
                     break;
-                case 1:
+                case 1: //if cycle is selected , change the button and add disable the fields
                     add(add_cycle);
                     remove(add_swim);
                     remove(add_sprint);
@@ -151,7 +152,7 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
                     repetition.setEditable(false);
                     where.setEditable(false);
                     break;
-                case 2:
+                case 2: //if sprint is selected , change the button and add disable the fields
                     add(add_sprint);
                     remove(add_swim);
                     remove(add_cycle);
@@ -167,13 +168,13 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             }
         }
         if (event.getSource() == add_swim) {
-            message = addEntrySwim("swimming");
+            message = addEntrySwim("swimming"); //button addSwim
         }
         if (event.getSource() == add_cycle) {
-            message = addEntryCycle("cycling");
+            message = addEntryCycle("cycling");//button addCycle
         }
         if (event.getSource() == add_sprint) {
-            message = addEntrySprint("running");
+            message = addEntrySprint("running"); //button addSprint
         }
         if (event.getSource() == lookUpByDate) {
             message = lookupEntry();
@@ -216,19 +217,19 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
             SwimEntry swim = new SwimEntry(n, d, m, y, h, mm, s, km, where1);
             if (myAthletes.duplicate(swim)) {
-                return "Cannot add the same athlete twice";
+                return "Cannot add the same athlete twice"; //checking for duplicate before adding
 
             }
             if (myAthletes.dateValidation(d, m, y)) {
-                return "Date is not valid";
+                return "Date is not valid"; //validating the date before adding
             }
 
             myAthletes.addEntry(swim);
 
         } catch (IllegalArgumentException ex) {
-            message = "One of the boxes not filled or incorrect input \n" +
+            return "One of the boxes not filled or incorrect input \n" +
                     "Record could not be added".toUpperCase();
-            return message;
+
         }
 
 
@@ -262,11 +263,11 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
 
             SprintEntry sprint = new SprintEntry(n, d, m, y, h, mm, s, km, rep, rec);
             if (myAthletes.duplicate(sprint)) {
-                return "Cannot add the same athlete twice";//stopping from adding the record with that athelete in it
+                return "Cannot add the same athlete twice";//stopping from adding the record with that athlete in it
 
             }
             if (myAthletes.dateValidation(d, m, y)) {
-                return "Date is not valid";
+                return "Date is not valid";  //validating the date before adding
             }
 
             myAthletes.addEntry(sprint);
@@ -325,8 +326,8 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
             int m = Integer.parseInt(month.getText());
             int d = Integer.parseInt(day.getText());
             int y = Integer.parseInt(year.getText());
-            String res = myAthletes.lookupEntry(d, m, y);
-            return res;
+            String result = myAthletes.lookupEntry(d, m, y);
+            return result;
 
         } catch (NumberFormatException ex) {
             return "No entries found for display";
@@ -395,9 +396,9 @@ public class TrainingRecordGUI extends JFrame implements ActionListener {
         mins.setText("");
         secs.setText("");
         dist.setText("");
-        repetition.setText("");//set to blan
+        repetition.setText("");//set to blank
         where.setText("");//set to blank
-        recovery.setText("");//set to blanlk
+        recovery.setText("");//set to blank
         terrain.setText("");//set to blank
         tempo.setText("");//set to blank
 

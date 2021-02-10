@@ -24,10 +24,13 @@ public class SwimEntry extends Entry {
                 + getDay() + "/" + getMonth() + "/" + getYear() + "\n";
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        return this==o;
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else
+            return false;//redundant code not working at the moment
+    }
 
 
 }
